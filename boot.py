@@ -1,6 +1,3 @@
-
-
-
 # Import necessary libraries
 # For inputs
 import board
@@ -111,5 +108,5 @@ pixels.show()
 # Disable MIDI
 usb_midi.disable()
 
-time.sleep(1)
+time.sleep(0.2)
 
