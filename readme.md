@@ -1,7 +1,7 @@
 # CircuitPython Keypad
 This code uses time.monotonic_ns(), which requires long integer support. SAMD21 boards like my current (as of writing in 2022) xiao based keypads are not compatible. It's possible to use time.monotonic() instead, but this will lose acccuracy over time and subsequently cause the timers in the code to reduce in speed after about an hour. 
 
-For this reason, prototype RP2040 xiao based models are being used for developemnt. This means that this code will be used for future models but will not be backwards compatible due to limitations in the (currently used) hardware.
+For this reason, prototype RP2040 xiao based models are being used for developemnt. This means that this code will be used for future models but will not be backwards compatible due to limitations in the currently used hardware.
 
 ## Why CircuitPython?
 I've written a lot of different versions of firmware for my keypads over the years. I think I'm relatively compitent with Arduino, and I have much less experience with Python, but that's not the same for a lot of people. Python is a very popular language and makes a lot of things a lot easier. Even with less experience, adding features is a bit easier with python.
@@ -26,4 +26,5 @@ I think it would be cool to make a MIDI keypad, but it's not something I have a 
  - [x] Separate config file for easy configuration
  - [x] Use config file for setting boot.py keys
  - [x] Configurable logo LED color
+ - [x] LED map list for keypads with unmatched key/LED orders
  - [ ] Touch support (may be a pipe dream due to speed)

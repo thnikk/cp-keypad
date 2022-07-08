@@ -12,7 +12,7 @@ from rainbowio import colorwheel
 ## Timing
 import time
 ## Import settings from config file
-from config import key_pins, keymap, idletime, led_mode, custom_colors, led_brightness, db_interval, logo_color
+from config import key_pins, keymap, idletime, led_mode, custom_colors, led_brightness, db_interval, logo_color, led_map
 
 # Initialize keys and associated lists
 key_array = [] # Stores all key objects in a list
@@ -91,15 +91,15 @@ while True:
             for i in range(0, len(custom_colors)): # Iterate through keys
                 if (pressed[i] == 0): # If not pressed,
                     # set color to hue plus offset based on key position
-                    pixels[i] = colorwheel(hue + (i * 20) % 255)
+                    pixels[led_map[i]] = colorwheel(hue + (i * 20) % 255)
                 else:
-                    pixels[i] = (255, 255, 255) # Set to white if pressed
+                    pixels[led_map[i]] = (255, 255, 255) # Set to white if pressed
         elif led_mode == 1: # Custom color
             for i in range(0, len(custom_colors)): # Iterate through keys
                 if (pressed[i] == 0):
-                    pixels[i] = custom_colors[i] # Set to colors defined in config
+                    pixels[led_map[i]] = custom_colors[i] # Set to colors defined in config
                 else:
-                    pixels[i] = (255, 255, 255) # Set to white if pressed
+                    pixels[led_map[i]] = (255, 255, 255) # Set to white if pressed
         elif led_mode == 2: # BPS
             # Step color up if presses per second has increased
             if num_pressed_last > num_pressed_buffer: num_pressed_buffer += 1

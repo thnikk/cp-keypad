@@ -1,9 +1,10 @@
 from adafruit_hid.keycode import Keycode
 import board
 
-# Pins used for keys
-# Don't change this unless you know what you're doing
+# Model specific values
+# DO NOT CHANGE
 key_pins = ( board.D2, board.D3, board.D1 )
+led_map = [ 0, 1 ]
 
 # This list sets the keymapping
 # Each key is separated by brackets and multiple keys can be used per-key with commas
