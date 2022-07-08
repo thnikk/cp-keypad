@@ -26,6 +26,9 @@ led_mode = 0
 # Colors used for custom colors mode
 custom_colors = [ [255,255,0], [255,0,255], [255,0,255], [255,0,255], [255,0,255], [255,0,255], [255,0,255], [255,0,255] ]
 
+# Logo color
+logo_color = [ 255, 255, 255 ]
+
 # Brightness (0-1)
 led_brightness = 0.2
 

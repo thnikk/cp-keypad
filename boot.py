@@ -13,6 +13,8 @@ import neopixel
 # For sleep
 import time
 
+from config import key_pins
+
 # For keyboard
 import usb_hid
 REPORT_ID = 0x4
@@ -73,9 +75,8 @@ print("Enabled HID with custom keyboard device.")
 
 
 # Initialize keys
-pins = [board.D2, board.D3, board.D1]
 keys = []
-for pin in pins:
+for pin in key_pins:
     key = digitalio.DigitalInOut(pin)
     key.direction = digitalio.Direction.INPUT
     key.pull = digitalio.Pull.UP
@@ -86,17 +87,17 @@ pixels = neopixel.NeoPixel(board.NEOPIXEL, 1, brightness=1, auto_write=False)
 color = [ 0, 255, 0 ]
 
 # Enable functions depending on keys held
-if keys[0].value:
-    # storage.disable_usb_drive()
+if keys[0].value: # Disable mass storage device unless key 1 is held at boot
+    storage.disable_usb_drive()
     color[0] = 255
 else:
     print("Key 1 held at boot, enabling mass storage device.")
-if keys[1].value:
-    # usb_cdc.disable()
+if keys[1].value: # Disable USB serial device unless key 2 is held at boot
+    usb_cdc.disable()
     color[2] = 255
 else:
     print("Key 2 held at boot, enabling serial connection.")
-if not keys[2].value:
+if not keys[2].value: # Reset to bootloader if key 3 is held
     microcontroller.on_next_reset(microcontroller.RunMode.BOOTLOADER)
     microcontroller.reset()
     print("Key 3 held at boot, resetting to bootloader.")
@@ -108,5 +109,6 @@ pixels.show()
 # Disable MIDI
 usb_midi.disable()
 
-time.sleep(0.2)
+# Slight delay to give the user time to release keys without them being pressed
+# time.sleep(0.2)
 

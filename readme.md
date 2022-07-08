@@ -24,4 +24,6 @@ I think it would be cool to make a MIDI keypad, but it's not something I have a 
  - [x] BPS led mode
  - [x] Scalable (8 keys is about the highest you can go without losing speed)
  - [x] Separate config file for easy configuration
- - [ ] Touch support
+ - [x] Use config file for setting boot.py keys
+ - [x] Configurable logo LED color
+ - [ ] Touch support (may be a pipe dream due to speed)
