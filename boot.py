@@ -82,17 +82,17 @@ for pin in pins:
     keys.append(key)
 
 # Indicator
-pixels = neopixel.NeoPixel(board.D0, 4, brightness=1, auto_write=False)
+pixels = neopixel.NeoPixel(board.NEOPIXEL, 1, brightness=1, auto_write=False)
 color = [ 0, 255, 0 ]
 
 # Enable functions depending on keys held
 if keys[0].value:
-    storage.disable_usb_drive()
+    # storage.disable_usb_drive()
     color[0] = 255
 else:
     print("Key 1 held at boot, enabling mass storage device.")
 if keys[1].value:
-    usb_cdc.disable()
+    # usb_cdc.disable()
     color[2] = 255
 else:
     print("Key 2 held at boot, enabling serial connection.")

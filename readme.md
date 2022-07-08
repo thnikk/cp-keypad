@@ -1,5 +1,7 @@
 # CircuitPython Keypad
-This code was rebased using Adafruit's keypad example. This depends on the [keypad](https://docs.circuitpython.org/en/latest/shared-bindings/keypad/index.html) library, which is incompatible with the SAMD21 Seeeduino Xiao, so this is made for use with the RP2040 version of the Xiao.
+This code uses time.monotonic_ns(), which requires long integer support. SAMD21 boards like my current (as of writing in 2022) xiao based keypads are not compatible. It's possible to use time.monotonic() instead, but this will lose acccuracy over time and subsequently cause the timers in the code to reduce in speed after about an hour. 
+
+For this reason, prototype RP2040 xiao based models are being used for developemnt. This means that this code will be used for future models but will not be backwards compatible due to limitations in the (currently used) hardware.
 
 ## Why CircuitPython?
 I've written a lot of different versions of firmware for my keypads over the years. I think I'm relatively compitent with Arduino, and I have much less experience with Python, but that's not the same for a lot of people. Python is a very popular language and makes a lot of things a lot easier. Even with less experience, adding features is a bit easier with python.
@@ -25,4 +27,6 @@ My biggest goals are reaching feature parity with the Unified-2022 firmware, wit
  - [x] Custom LED mode
  - [x] Idle timeout
  - [x] BPS led mode
+ - [x] Scalable (8 keys is about the highest you can go without losing speed)
+ - [x] Separate config file for easy configuration
  - [ ] Touch support
