@@ -15,11 +15,6 @@ I'm not sure where to put this so here's another section. CircuitPython actually
 
 I think it would be cool to make a MIDI keypad, but it's not something I have a lot of experience with and I don't think it fits into this firmware. I also suspect that most people would want completely different functionality, so I think providing a skeleton firmware that's easy to modify would make more sense than retrofitting this code. It should be easy enough so if you know any python, give it a try (just make sure you delete boot.py).
 
-## Goals
-My biggest goals are reaching feature parity with the Unified-2022 firmware, with the exceptions of:
-
-- No serial remapper since this is done with the config file instead.
-
 ## Features
 
  - [x] Remappable keys
