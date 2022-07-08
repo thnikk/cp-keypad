@@ -15,6 +15,14 @@ I'm not sure where to put this so here's another section. CircuitPython actually
 
 I think it would be cool to make a MIDI keypad, but it's not something I have a lot of experience with and I don't think it fits into this firmware. I also suspect that most people would want completely different functionality, so I think providing a skeleton firmware that's easy to modify would make more sense than retrofitting this code. It should be easy enough so if you know any python, give it a try (just make sure you delete boot.py).
 
+## Enabling USB mass storage (required for updating) and serial (for debugging)
+
+Both of these are disabled by default by boot.py and can be enabled by holding down the first two keys while plugging the keypad in. If you only want to enable one of them, mass storage is the first key and serial is the second.
+
+## Entering bootloader mode
+
+If your keypad doesn't have easy access to the reset switch, you can enter bootloader mode by holding down the third key at boot.
+
 ## Features
 
  - [x] Remappable keys
