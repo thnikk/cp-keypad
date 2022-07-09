@@ -10,6 +10,8 @@ from adafruit_hid.keycode import Keycode
 ## Media keys
 from adafruit_hid.consumer_control_code import ConsumerControlCode
 from adafruit_hid.consumer_control import ConsumerControl
+## Mouse
+from adafruit_hid.mouse import Mouse
 ## LED libraries
 import neopixel
 from rainbowio import colorwheel
@@ -41,6 +43,7 @@ logo.show()
 # Initialize keyboard
 kbd = BitmapKeyboard(usb_hid.devices)
 cc = ConsumerControl(usb_hid.devices)
+mouse = Mouse(usb_hid.devices)
 
 # Define some variables
 ## Loop counter
@@ -73,6 +76,8 @@ for x, keys in enumerate(keymap):
     for y, key in enumerate(keys):
         if "ConsumerControl" in key:
             mode_keys.append(1)
+        elif "Mouse" in key:
+            mode_keys.append(2)
         else:
             mode_keys.append(0)
         keymap[x][y] = eval(keymap[x][y])
@@ -104,10 +109,11 @@ while True:
     if (time_ns - led_timer) >= 20000000:
         led_timer = time_ns # Reset timer
         # Idle timeout
-        if (time_ns - idle_timer) > idletime_ns:
-            if (pixels.brightness > 0): pixels.brightness = pixels.brightness - 0.01
-        else:
-            if (pixels.brightness < led_brightness): pixels.brightness = pixels.brightness + 0.01
+        if (idletime > 0):
+            if (time_ns - idle_timer) > idletime_ns:
+                if (pixels.brightness > 0): pixels.brightness = pixels.brightness - 0.01
+            else:
+                if (pixels.brightness < led_brightness): pixels.brightness = pixels.brightness + 0.01
         if led_mode == 0: # Color cycle
             hue+=1 # Increment value
             for i in range(0, len(custom_colors)): # Iterate through keys
@@ -142,6 +148,8 @@ while True:
                     for y, kc in enumerate(keymap[x]): # Press all keys for active key
                         if (mode_keymap[x][y] == 1): # Check the mode and use consumercontrol if 1
                             cc.press(kc)
+                        elif (mode_keymap[x][y] == 2): # Mouse if 2
+                            mouse.press(kc)
                         else: # Otherwise use keyboard
                             kbd.press(kc)
                     pressed[x] = 1 # This causes the press action to only run once until released
@@ -152,6 +160,8 @@ while True:
                     for y, kc in enumerate(keymap[x]): # Release all keys for active key
                         if (mode_keymap[x][y] == 1): # Check the mode and use consumercontrol if 1
                             cc.release()
+                        elif (mode_keymap[x][y] == 2): # Mouse if 2
+                            mouse.release(kc)
                         else: # Otherwise use keyboard
                             kbd.release(kc)
                     pressed[x] = 0 # This causes the release action to only run once until pressed

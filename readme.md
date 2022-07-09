@@ -36,5 +36,5 @@ If your keypad doesn't have easy access to the reset switch, you can enter bootl
  - [x] Configurable logo LED color
  - [x] LED map list for keypads with unmatched key/LED orders
  - [x] Media key support
- - [ ] Mouse button support
+ - [x] Mouse button support
  - [ ] Touch support (may be a pipe dream due to speed)

@@ -10,11 +10,21 @@ led_map = [ 0, 1, 2, 3, 4, 5, 6, 7 ]
 # For example, [ [Keycode.CTRL, Keycode.SHIFT, Keycode.C], [], [] ]
 # You should be able to use as many keys together as you'd like,
 # but I wouldn't recommend using more than 3 or 4 as they are pressed simultaneously.
-keymap = [ ["ConsumerControlCode.MUTE"], ["Keycode.SHIFT", "ConsumerControlCode.MUTE"], ["Keycode.THREE"], ["Keycode.FOUR"], ["Keycode.FIVE"], ["Keycode.SIX"], ["Keycode.SEVEN"], ["Keycode.EIGHT"] ]
+keymap = [ 
+    ["ConsumerControlCode.MUTE"], 
+    ["Keycode.SHIFT", "ConsumerControlCode.MUTE"],
+    ["ConsumerControlCode.VOLUME_INCREMENT"],
+    ["Keycode.SHIFT", "ConsumerControlCode.SCAN_NEXT_TRACK"], 
+    ["Keycode.PAGE_UP"], 
+    ["ConsumerControlCode.VOLUME_DECREMENT"],
+    ["Keycode.SHIFT", "ConsumerControlCode.SCAN_PREVIOUS_TRACK"], 
+    ["Keycode.PAGE_DOWN"] 
+]
 
 # LED timeout in seconds
 # The LEDs will turn off after this time and come back on when a key is pressed.
-idletime = 60
+# A value of 0 will disable idle timeout
+idletime = 0
 
 # LED mode
 # Mode 0: Color cycle
