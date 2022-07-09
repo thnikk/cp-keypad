@@ -1,4 +1,3 @@
-from adafruit_hid.keycode import Keycode
 import board
 
 # Model specific values
@@ -11,7 +10,7 @@ led_map = [ 1, 0, 2, 3, 4, 7, 6, 5 ]
 # For example, [ [Keycode.CTRL, Keycode.SHIFT, Keycode.C], [], [] ]
 # You should be able to use as many keys together as you'd like,
 # but I wouldn't recommend using more than 3 or 4 as they are pressed simultaneously.
-keymap = [ [Keycode.ONE], [Keycode.TWO], [Keycode.THREE], [Keycode.FOUR], [Keycode.FIVE], [Keycode.SIX], [Keycode.SEVEN], [Keycode.EIGHT] ]
+keymap = [ ["Keycode.ONE"], ["Keycode.TWO"], ["Keycode.THREE"], ["Keycode.FOUR"], ["Keycode.FIVE"], ["Keycode.SIX"], ["Keycode.SEVEN"], ["Keycode.EIGHT"] ]
 
 # LED timeout in seconds
 # The LEDs will turn off after this time and come back on when a key is pressed.

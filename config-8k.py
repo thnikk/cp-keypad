@@ -1,4 +1,3 @@
-from adafruit_hid.keycode import Keycode
 import board
 
 # Model specific values
@@ -11,7 +10,7 @@ led_map = [ 0, 1, 2, 3, 4, 5, 6, 7 ]
 # For example, [ [Keycode.CTRL, Keycode.SHIFT, Keycode.C], [], [] ]
 # You should be able to use as many keys together as you'd like,
 # but I wouldn't recommend using more than 3 or 4 as they are pressed simultaneously.
-keymap = [ [Keycode.ONE], [Keycode.TWO], [Keycode.THREE], [Keycode.FOUR], [Keycode.FIVE], [Keycode.SIX], [Keycode.SEVEN], [Keycode.EIGHT] ]
+keymap = [ ["ConsumerControlCode.MUTE"], ["Keycode.SHIFT", "ConsumerControlCode.MUTE"], ["Keycode.THREE"], ["Keycode.FOUR"], ["Keycode.FIVE"], ["Keycode.SIX"], ["Keycode.SEVEN"], ["Keycode.EIGHT"] ]
 
 # LED timeout in seconds
 # The LEDs will turn off after this time and come back on when a key is pressed.
@@ -21,11 +20,11 @@ idletime = 60
 # Mode 0: Color cycle
 # Mode 1: Custom colors
 # Mode 2: BPS
-led_mode = 0
+led_mode = 1
 
 # Custom colors
 # Colors used for custom colors mode
-custom_colors = [ [255,255,0], [255,0,255], [255,0,255], [255,0,255], [255,0,255], [255,0,255], [255,0,255], [255,0,255] ]
+custom_colors = [ [255,255,0], [255,0,255], [0,0,255], [0,255,0], [255,0,0], [0,0,255], [0,255,0], [255,0,0] ]
 
 # Logo color
 logo_color = [ 255, 255, 255 ]

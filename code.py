@@ -6,6 +6,10 @@ import digitalio
 import usb_hid
 from adafruit_hid.keyboard import Keyboard, find_device
 from adafruit_hid.nkro import BitmapKeyboard
+from adafruit_hid.keycode import Keycode
+## Media keys
+from adafruit_hid.consumer_control_code import ConsumerControlCode
+from adafruit_hid.consumer_control import ConsumerControl
 ## LED libraries
 import neopixel
 from rainbowio import colorwheel
@@ -36,6 +40,7 @@ logo.show()
 
 # Initialize keyboard
 kbd = BitmapKeyboard(usb_hid.devices)
+cc = ConsumerControl(usb_hid.devices)
 
 # Define some variables
 ## Loop counter
@@ -57,6 +62,21 @@ update_count = 0
 idle_timer = time.monotonic_ns() # Timer for idle timeout 
 idletime_ns = idletime * 1000000000 # Convert seconds to nanoseconds
 
+# Evaluate keycodes and mark consumercontrol keycodes
+# ConsumerControlCode.<keycode> and Keycode.<keycode> both evaluate to a byte, and some keys
+# overlap and use the same code. CircuitPython has no way of knowing whether a keycode is for consumercontrol or keyboard,
+# so we express it as a string in config.py and evaluate it here while assigning a variable depending on the mode.
+# This is done here (not in the main loop) because eval is slow, so doing it once in setup will keep the loop speed higher.
+mode_keymap = []
+for x, keys in enumerate(keymap):
+    mode_keys = []
+    for y, key in enumerate(keys):
+        if "ConsumerControl" in key:
+            mode_keys.append(1)
+        else:
+            mode_keys.append(0)
+        keymap[x][y] = eval(keymap[x][y])
+    mode_keymap.append(mode_keys)
 
 while True:
 
@@ -74,6 +94,8 @@ while True:
         update_count=0 # Reset keyboard update counter
         count=0 # Reset main loop counter
         print("ns since boot:", time_ns) # Print time.monotonic_ns()
+        print("Mode keymap:", mode_keymap)
+        print("Keymap:", keymap)
     else:
         count+=1 # Increment value when not printing
 
@@ -117,15 +139,21 @@ while True:
         for x, key in enumerate(key_array): # Iterate through keys
             if (time_ns - db_timer[x]) >= db_interval: # If debounce time has passed for the key
                 if not key.value and not pressed[x]: # If the key has been pressed
-                    for kc in keymap[x]: # Press all keys for active key
-                        kbd.press(kc)
+                    for y, kc in enumerate(keymap[x]): # Press all keys for active key
+                        if (mode_keymap[x][y] == 1): # Check the mode and use consumercontrol if 1
+                            cc.press(kc)
+                        else: # Otherwise use keyboard
+                            kbd.press(kc)
                     pressed[x] = 1 # This causes the press action to only run once until released
                     num_pressed+=1 # Add to counter for bps
                     db_timer[x] = time_ns # Update debounce timer for key
                     idle_timer = time_ns # Reset idle timer
                 elif key.value and pressed[x]: # If the key has been released
-                    for kc in keymap[x]: # Release all keys for active key
-                        kbd.release(kc)
+                    for y, kc in enumerate(keymap[x]): # Release all keys for active key
+                        if (mode_keymap[x][y] == 1): # Check the mode and use consumercontrol if 1
+                            cc.release()
+                        else: # Otherwise use keyboard
+                            kbd.release(kc)
                     pressed[x] = 0 # This causes the release action to only run once until pressed
                     db_timer[x] = time_ns # Update debounce timer
                     idle_timer = time_ns # Reset idle timer
