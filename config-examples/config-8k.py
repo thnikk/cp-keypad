@@ -15,22 +15,22 @@ keymap = [
     ["Keycode.SHIFT", "ConsumerControlCode.MUTE"],
     ["ConsumerControlCode.VOLUME_INCREMENT"],
     ["Keycode.SHIFT", "ConsumerControlCode.SCAN_NEXT_TRACK"], 
-    ["Keycode.PAGE_UP"], 
+    ["CCCX.MAIL"], 
     ["ConsumerControlCode.VOLUME_DECREMENT"],
     ["Keycode.SHIFT", "ConsumerControlCode.SCAN_PREVIOUS_TRACK"], 
-    ["Keycode.PAGE_DOWN"] 
+    ["CCCX.CALCULATOR"] 
 ]
 
 # LED timeout in seconds
 # The LEDs will turn off after this time and come back on when a key is pressed.
 # A value of 0 will disable idle timeout
-idletime = 0
+idletime = 30
 
 # LED mode
 # Mode 0: Color cycle
 # Mode 1: Custom colors
 # Mode 2: BPS
-led_mode = 1
+led_mode = 0
 
 # Custom colors
 # Colors used for custom colors mode

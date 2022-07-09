@@ -10,6 +10,7 @@ from adafruit_hid.keycode import Keycode
 ## Media keys
 from adafruit_hid.consumer_control_code import ConsumerControlCode
 from adafruit_hid.consumer_control import ConsumerControl
+from consumer_control_code_extended import CCCX
 ## Mouse
 from adafruit_hid.mouse import Mouse
 ## LED libraries
@@ -66,15 +67,15 @@ idle_timer = time.monotonic_ns() # Timer for idle timeout
 idletime_ns = idletime * 1000000000 # Convert seconds to nanoseconds
 
 # Evaluate keycodes and mark consumercontrol keycodes
-# ConsumerControlCode.<keycode> and Keycode.<keycode> both evaluate to a byte, and some keys
-# overlap and use the same code. CircuitPython has no way of knowing whether a keycode is for consumercontrol or keyboard,
+# ConsumerControlCode.<keycode>, Keycode.<keycode>, and Mouse.<butotn> all evaluate to a byte, and some keys
+# overlap and use the same code. CircuitPython has no way of knowing which a keycode is for,
 # so we express it as a string in config.py and evaluate it here while assigning a variable depending on the mode.
-# This is done here (not in the main loop) because eval is slow, so doing it once in setup will keep the loop speed higher.
+# This is done outside of the main loop because eval is slow, so doing it once in setup will keep the loop speed higher.
 mode_keymap = []
 for x, keys in enumerate(keymap):
     mode_keys = []
     for y, key in enumerate(keys):
-        if "ConsumerControl" in key:
+        if "ConsumerControl" in key or "CCCX" in key:
             mode_keys.append(1)
         elif "Mouse" in key:
             mode_keys.append(2)
@@ -114,6 +115,8 @@ while True:
                 if (pixels.brightness > 0): pixels.brightness = pixels.brightness - 0.01
             else:
                 if (pixels.brightness < led_brightness): pixels.brightness = pixels.brightness + 0.01
+            logo.brightness = pixels.brightness
+            logo.show()
         if led_mode == 0: # Color cycle
             hue+=1 # Increment value
             for i in range(0, len(custom_colors)): # Iterate through keys
