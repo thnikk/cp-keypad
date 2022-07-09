@@ -99,8 +99,8 @@ while True:
         update_count=0 # Reset keyboard update counter
         count=0 # Reset main loop counter
         print("ns since boot:", time_ns) # Print time.monotonic_ns()
-        print("Mode keymap:", mode_keymap)
-        print("Keymap:", keymap)
+        # print("Mode keymap:", mode_keymap)
+        # print("Keymap:", keymap)
     else:
         count+=1 # Increment value when not printing
 
