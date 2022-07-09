@@ -36,7 +36,7 @@ for key_pin in key_pins:
 # Initialize LEDs
 pixels = neopixel.NeoPixel(board.D0, len(custom_colors), brightness=led_brightness, auto_write=False)
 ## Initialize logo LED and set to static color
-logo = neopixel.NeoPixel(board.NEOPIXEL, 1, brightness=1, auto_write=False)
+logo = neopixel.NeoPixel(board.NEOPIXEL, 1, brightness=led_brightness, auto_write=False)
 logo[0] = logo_color
 logo.show()
 

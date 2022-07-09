@@ -37,4 +37,5 @@ For this reason, prototype RP2040 xiao based models are being used for developem
  - [x] LED map list for keypads with unmatched key/LED orders
  - [x] Media key support
  - [x] Mouse button support
+ - [ ] Auto-generated config examples
  - [ ] Touch support (may be a pipe dream due to speed)
