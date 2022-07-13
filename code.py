@@ -67,7 +67,7 @@ idle_timer = time.monotonic_ns() # Timer for idle timeout
 idletime_ns = idletime * 1000000000 # Convert seconds to nanoseconds
 
 # Evaluate keycodes and mark consumercontrol keycodes
-# ConsumerControlCode.<keycode>, Keycode.<keycode>, and Mouse.<butotn> all evaluate to a byte, and some keys
+# ConsumerControlCode/Keycode/Mouse/CCCX.<button> all evaluate to a byte, and some keys
 # overlap and use the same code. CircuitPython has no way of knowing which a keycode is for,
 # so we express it as a string in config.py and evaluate it here while assigning a variable depending on the mode.
 # This is done outside of the main loop because eval is slow, so doing it once in setup will keep the loop speed higher.
@@ -83,6 +83,9 @@ for x, keys in enumerate(keymap):
             mode_keys.append(0)
         keymap[x][y] = eval(keymap[x][y])
     mode_keymap.append(mode_keys)
+
+# Convert db_interval to ns
+db_interval = db_interval * 1000000000
 
 while True:
 
