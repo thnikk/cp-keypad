@@ -10,18 +10,27 @@ One big advantage is being able to configure the keypad through a plaintext file
 
 One of the biggest things for me is the ability to disable CDC (serial) and UMS (mass storage) at runtime. This provides great ways to debug and configure the keypad without being stuck with a serial or mass storage device constantly being connected, potentially conflicting with other programs. I've had keypads freak out when opening Cura (a 3D printing program) because of how it checks for serial devices, and if you don't have any other removable drives connected, it can be annoying to see one whenever the keypad is plugged in.
 
-## Enabling USB mass storage (required for updating) and serial (for debugging)
+## Downsides
+CircuitPython brings a lot of conveniences, but it also comes with some downsides.
 
+- It's an interpreted language, so it's a lot slower.
+- You're (currently) unable to leverage both cores on the RP2040.
+
+The code should still be fast enough, but it's already hitting the limits of CircuitPython. 
+
+## Enabling USB mass storage (required for updating) and serial (for debugging)
 Both of these are disabled by default by boot.py and can be enabled by holding down the first two keys while plugging the keypad in. If you only want to enable one of them, mass storage is the first key and serial is the second.
 
 ## Entering bootloader mode
-
 If your keypad doesn't have easy access to the reset switch, you can enter bootloader mode by holding down the third key at boot.
 
 ## Compatibility
 This code uses time.monotonic_ns(), which requires long integer support. SAMD21 boards like my current (as of writing in 2022) xiao based keypads are not compatible. It's possible to use time.monotonic() instead, but this will lose acccuracy over time and subsequently cause the timers in the code to reduce in speed after about an hour. 
 
 For this reason, prototype RP2040 xiao based models are being used for developemnt. This means that this code will be used for future models but will not be backwards compatible due to limitations in the currently used hardware.
+
+## Configuration
+All user-configurable settings are stored in config.py. This includes input pins, mapping, LED mode, LED colors (for custom mode), timeout, brightness, etc. 
 
 ## Features
 
@@ -38,4 +47,5 @@ For this reason, prototype RP2040 xiao based models are being used for developem
  - [x] Media key support
  - [x] Mouse button support
  - [ ] Auto-generated config examples
- - [ ] Touch support (may be a pipe dream due to speed)
+ - [ ] Touch support (likely a pipe dream due to speed)
+ - [ ] MIDI support
