@@ -42,7 +42,7 @@ logo_color = [ 255, 255, 255 ]
 # Brightness (0-1)
 led_brightness = 0.2
 
-# Debounce interval (Seconds)
+# Debounce interval (Milliseconds)
 # This is the amount of time to ignore a change in the key state after it's been pressed/released.
-# Sane values are 0.0005 to 0.0020 (5-20 ms)
-db_interval = 0.0010 
+# Sane values are between 5 and 20 ms
+db_interval = 10 

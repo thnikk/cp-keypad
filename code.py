@@ -85,7 +85,8 @@ for x, keys in enumerate(keymap):
     mode_keymap.append(mode_keys)
 
 # Convert db_interval to ns
-db_interval = db_interval * 1000000000
+db_interval = db_interval * 10000000000000
+print(db_interval)
 
 while True:
 
