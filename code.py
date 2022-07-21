@@ -84,9 +84,8 @@ for x, keys in enumerate(keymap):
         keymap[x][y] = eval(keymap[x][y])
     mode_keymap.append(mode_keys)
 
-# Convert db_interval to ns
-db_interval = db_interval * 10000000000000
-print(db_interval)
+# Convert db_interval (ms) to ns
+db_interval = db_interval * 100000000
 
 while True:
 
