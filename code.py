@@ -146,11 +146,11 @@ while True:
     # Update key status 1000 times per second
     if (time_ns - key_timer) >= 500000:
         key_timer = time_ns # Reset timer
-        update_count+=1 # Increase keyboard loop counter
+        update_count+=1 # Debug counter (keyboard)
         # Check keys
         for x, key in enumerate(key_array): # Iterate through keys
-            if (time_ns - db_timer[x]) >= db_interval: # If debounce time has passed for the key
-                if not key.value and not pressed[x]: # If the key has been pressed
+            if not key.value and not pressed[x]: # If the key has been pressed
+                if (time_ns - db_timer[x]) >= db_interval: # If debounce time has passed for the key
                     for y, kc in enumerate(keymap[x]): # Press all keys for active key
                         if (mode_keymap[x][y] == 1): # Check the mode and use consumercontrol if 1
                             cc.press(kc)
@@ -162,7 +162,8 @@ while True:
                     num_pressed+=1 # Add to counter for bps
                     db_timer[x] = time_ns # Update debounce timer for key
                     idle_timer = time_ns # Reset idle timer
-                elif key.value and pressed[x]: # If the key has been released
+            elif key.value and pressed[x]: # If the key has been released
+                if (time_ns - db_timer[x]) >= db_interval: # If debounce time has passed for the key
                     for y, kc in enumerate(keymap[x]): # Release all keys for active key
                         if (mode_keymap[x][y] == 1): # Check the mode and use consumercontrol if 1
                             cc.release()
