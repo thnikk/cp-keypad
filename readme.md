@@ -16,7 +16,7 @@ CircuitPython brings a lot of conveniences, but it also comes with some downside
 - It's an interpreted language, so it's a lot slower.
 - You're (currently) unable to leverage both cores on the RP2040.
 
-The code should still be fast enough, but it's already hitting the limits of CircuitPython. 
+It's fast enough for simple tasks, but I wouldn't recommend it for games. There may be some speed improvements to CircuitPython in the future that enable this as I think there's a lot of performance left on the table with something like the RP2040.
 
 ## Enabling USB mass storage (required for updating) and serial (for debugging)
 Both of these are disabled by default by boot.py and can be enabled by holding down the first two keys while plugging the keypad in. If you only want to enable one of them, mass storage is the first key and serial is the second.

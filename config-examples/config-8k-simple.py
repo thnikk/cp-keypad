@@ -30,7 +30,7 @@ idletime = 30
 # Mode 0: Color cycle
 # Mode 1: Custom colors
 # Mode 2: BPS
-led_mode = 0
+led_mode = 1
 
 # Custom colors
 # Colors used for custom colors mode
